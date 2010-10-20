@@ -7,13 +7,13 @@
 <?rfc toc="yes"?>
 <?rfc tocdepth="4"?>
 
-<rfc category="bcp" docName="draft-saintandre-xdash-considered-harmful-00" ipr="trust200902">
+<rfc category="bcp" docName="draft-saintandre-xdash-considered-harmful-01" ipr="trust200902">
 
   <front>
     <title abbrev="X- Considered Harmful">"X-" Considered Harmful</title>
 
     <author initials="P." surname="Saint-Andre" fullname="Peter Saint-Andre">
-      <organization>Cisco Systems, Inc.</organization>
+      <organization>Cisco</organization>
       <address>
         <postal>
           <street>1899 Wyknoop Street, Suite 600</street>
@@ -27,33 +27,41 @@
       </address>
     </author>
 
-    <date month="July" day="2" year="2010"/>
+    <date month="October" day="19" year="2010"/>
 
     <area>Applications</area>
     <keyword>Internet-Draft</keyword>
 
     <abstract>
-      <t>Many application protocols use named parameters to represent data (for example, header fields in Internet mail messages and HTTP requests).  Historically, protocol designers and implementers have often differentiated between "official" and "unofficial" parameters by prefixing unofficial parameters with the string "X-".  This document argues that on balance the "X-" convention has more costs than benefits.</t>
+      <t>Many application protocols use named parameters to represent data (for example, header fields in Internet mail messages and HTTP requests).  Historically, protocol designers and implementers have often differentiated between "standard" and "experimental" parameters by prefixing experimental parameters with the string "X-".  This document argues that, on balance, the "X-" convention has more costs than benefits.</t>
     </abstract>
   </front>
 
   <middle>
 
+    <section title="Introduction" anchor="introduction">
+      <t>Many application protocols use named parameters to represent data (for example, header fields in Internet mail messages and HTTP requests).  Historically, protocol designers and implementers have often differentiated between "standard" and "experimental" parameters by prefixing experimental parameters with the string "X-", where the "X" stands for "eXperimental".  This document argues that on balance the "X-" convention has more costs than benefits.</t>
+    </section>
+
     <section title="Argument" anchor="argument">
-      <t>Many application protocols use named parameters to represent data (for example, header fields in Internet mail messages and HTTP requests).  Historically, protocol designers and implementers have often differentiated between "official" and "unofficial" parameters by prefixing unofficial parameters with the string "X-" (often pronounced "ex dash").  This document argues that on balance the "X-" convention has more costs than benefits.</t>
-      <t>The "X-" prefix has been in use since at least the publication of <xref target='RFC1154'/> in 1990, which set forth the following rule:</t>
+      <t>The "X-" convention has been in use for email header fields since the publication of <xref target='RFC822'/> in 1982, which distinguished between Extension-fields and user-defined-fields as follows:</t>
+      <t><list style='empty'><t>The prefatory string "X-" will never be used in the names of Extension-fields.  This provides user-defined fields with a protected set of names.</t></list></t>
+      <t>That rule was restated by <xref target='RFC1154'/> as follows:</t>
       <t><list style='empty'><t>Keywords beginning with "X-" are permanently reserved to implementation-specific use.  No standard registered encoding keyword will ever begin with "X-".</t></list></t>
       <t>This convention continued with various specifications for MIME <xref target='RFC2045'/> <xref target='RFC2046'/> <xref target='RFC2047'/>, email <xref target='RFC2821'/> <xref target='RFC5321'/>, HTTP <xref target='RFC2068'/> <xref target='RFC2616'/>, and other technologies.</t>
+      <t>The primary problem with the "X-" convention is that experimental or implementation-specific parameters have a tendency to become standardized (whether de jure or de facto), thus introducing the need for migration from the "X-" name to the standardized name.  Migration, in turn, introduces interoperability issues because older implementations will support only the "X-" name and newer implementations might support only the standardized name.  To preserve interoperability, newer implementations simply support the "X-" name forever, which means that the experimental name becomes a de facto standard (thus obviating the need for segregation of the name spaces in the first place).  We can see this phenomenon at work in <xref target='RFC2068'/>:</t>
+      <t><list style='empty'><t>For compatibility with previous implementations of HTTP, applications should consider "x-gzip" and "x-compress" to be equivalent to "gzip" and "compress" respectively.</t></list></t>
+      <t>One of the original reasons for segregation of name spaces into standard and experimental areas was the perceived difficulty of registering names.  However, the solution to that problem has been simpler registration rules, such as those provided by <xref target='RFC3864'/> and <xref target='RFC4288'/>, as well as separate registries for permanent and provisional names.  Indeed, <xref target='RFC4288'/> explicitly calls out the implications for experimental names:</t>
+      <t><list style='empty'><t>[W]ith the simplified registration procedures described above for vendor and personal trees, it should rarely, if ever, be necessary to use unregistered experimental types.  Therefore, use of both "x-" and "x." forms is discouraged.</t></list></t>
+      <t>In some limited situations, segregating a name space can be justified; for example, when the names need to be very small (as in <xref target='RFC5646'/>) or when the names have significant meaning.  However, in general, segregating experimental or implementation-specific parameters into an "X-" ghetto has few if any benefits, and has at least one significant interoperability cost.  The practice is at best useless and at worst harmful.</t>
       <t>The primary objections to discarding the "X-" convention are:</t>
       <t>
         <list style='symbols'>
           <t>Implementers are easily confused.  However, implementers already are quite flexible about using both prefixed and non-prefixed names based on what works in the field, so the distinction between de facto names (e.g., "X-foo") and de jure names (e.g., "foo") is meaningless to them.<vspace blankLines='1'/></t>
-          <t>Collisions are undesirable. However, names are cheap, so an implementation-specific name of "foo" does not prevent a standards development organization from issuing a similarly creative name such as "bar".</t>
+          <t>Collisions are undesirable. However, names are usually cheap, so an experimental or implementation-specific name of "foo" does not prevent a standards development organization from issuing a similarly creative name such as "bar".</t>
         </list>
       </t>
-      <t>The primary problem with the "X-" convention is that implementation-specific parameters have a tendency to seep into the standardization space, introducing the need for migration from the "X-" name to the standardized name.  Migration, in turn, introduces interoperability issues because older implementations will support only the "X-" name and newer implementations might support only the standardized name.  To preserve interoperability, newer implementations simply support the "X-" name forever, which means that the unofficial name is a standard de facto (if not de jure).  We can see this phenomenon at work in <xref target='RFC2068'/>:</t>
-      <t><list style='empty'><t>For compatibility with previous implementations of HTTP, applications should consider "x-gzip" and "x-compress" to be equivalent to "gzip" and "compress" respectively.</t></list></t>
-      <t>Therefore, segregating implementation-specific parameters into an "X-" ghetto has few if any benefits and at least one significant interoperability cost.  The practice is at best useless and at worst harmful.</t>
+      <t>Therefore, this document recommends against the creation of new names with the special "X-" prefix in IETF protocols.</t>
     </section>
 
     <section title="Security Considerations" anchor="security">
@@ -64,12 +72,35 @@
       <t>This document has no actions for the IANA.</t>
     </section>
 
+    <section title="Acknowledgements" anchor="acks">
+      <t>Thanks to Adam Barth, Dave Crocker, Martin Duerst, Paul Hoffman, Graham Klyne, Alexey Melnikov, Mark Nottingham, and Randy Presuhn for feedback.</t>
+    </section>
+
   </middle>
 
   <back>
 
     <references title="Informative References">
 
+<reference anchor='RFC822'>
+<front>
+<title abbrev='Standard for ARPA Internet Text Messages'>Standard for the format of ARPA Internet text messages</title>
+<author initials='D.H.' surname='Crocker' fullname='David H. Crocker'>
+<organization>University of Delaware, Dept. of Electrical Engineering</organization>
+<address>
+<postal>
+<street />
+<city>Newark</city>
+<region>DE</region>
+<code>19711</code>
+<country>US</country></postal>
+<email>DCrocker@UDel-Relay</email></address></author>
+<date year='1982' day='13' month='August' /></front>
+
+<seriesInfo name='STD' value='11' />
+<seriesInfo name='RFC' value='822' />
+<format type='TXT' octets='109200' target='http://www.rfc-editor.org/rfc/rfc822.txt' />
+</reference>
 <reference anchor='RFC1154'>
 <front>
 <title>Encoding header field for internet messages</title>
@@ -439,6 +470,38 @@
 <format type='TXT' octets='192504' target='ftp://ftp.isi.edu/in-notes/rfc2821.txt' />
 </reference>
 
+<reference anchor='RFC3864'>
+<front>
+<title>Registration Procedures for Message Header Fields</title>
+<author initials='G.' surname='Klyne' fullname='G. Klyne'>
+<organization /></author>
+<author initials='M.' surname='Nottingham' fullname='M. Nottingham'>
+<organization /></author>
+<author initials='J.' surname='Mogul' fullname='J. Mogul'>
+<organization /></author>
+<date year='2004' month='September' />
+<abstract>
+<t>This specification defines registration procedures for the message header fields used by Internet mail, HTTP, Netnews and other applications.  This document specifies an Internet Best Current Practices for the Internet Community, and requests discussion and suggestions for improvements.</t></abstract></front>
+<seriesInfo name='BCP' value='90' />
+<seriesInfo name='RFC' value='3864' />
+<format type='TXT' octets='36231' target='http://www.rfc-editor.org/rfc/rfc3864.txt' />
+</reference>
+
+<reference anchor='RFC4288'>
+<front>
+<title>Media Type Specifications and Registration Procedures</title>
+<author initials='N.' surname='Freed' fullname='N. Freed'>
+<organization /></author>
+<author initials='J.' surname='Klensin' fullname='J. Klensin'>
+<organization /></author>
+<date year='2005' month='December' />
+<abstract>
+<t>This document defines procedures for the specification and registration of media types for use in MIME and other Internet protocols.  This document specifies an Internet Best Current Practices for the Internet Community, and requests discussion and suggestions for improvements.</t></abstract></front>
+<seriesInfo name='BCP' value='13' />
+<seriesInfo name='RFC' value='4288' />
+<format type='TXT' octets='52667' target='http://www.rfc-editor.org/rfc/rfc4288.txt' />
+</reference>
+
 <reference anchor='RFC5321'>
 <front>
 <title>Simple Mail Transfer Protocol</title>
@@ -449,6 +512,21 @@
 <t>This document is a specification of the basic protocol for Internet electronic mail transport.  It consolidates, updates, and clarifies several previous documents, making all or parts of most of them obsolete.  It covers the SMTP extension mechanisms and best practices for the contemporary Internet, but does not provide details about particular extensions.  Although SMTP was designed as a mail transport and delivery protocol, this specification also contains information that is important to its use as a "mail submission" protocol for "split-UA" (User Agent) mail reading systems and mobile environments. [STANDARDS TRACK]</t></abstract></front>
 <seriesInfo name='RFC' value='5321' />
 <format type='TXT' octets='225929' target='ftp://ftp.isi.edu/in-notes/rfc5321.txt' />
+</reference>
+
+<reference anchor='RFC5646'>
+<front>
+<title>Tags for Identifying Languages</title>
+<author initials='A.' surname='Phillips' fullname='A. Phillips'>
+<organization /></author>
+<author initials='M.' surname='Davis' fullname='M. Davis'>
+<organization /></author>
+<date year='2009' month='September' />
+<abstract>
+<t>This document describes the structure, content, construction, and semantics of language tags for use in cases where it is desirable to indicate the language used in an information object.  It also describes how to register values for use in language tags and the creation of user-defined extensions for private interchange.  This document specifies an Internet Best Current Practices for the Internet Community, and requests discussion and suggestions for improvements.</t></abstract></front>
+<seriesInfo name='BCP' value='47' />
+<seriesInfo name='RFC' value='5646' />
+<format type='TXT' octets='208592' target='http://www.rfc-editor.org/rfc/rfc5646.txt' />
 </reference>
 
     </references>
