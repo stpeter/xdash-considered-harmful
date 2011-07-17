@@ -92,6 +92,7 @@
         <list style='numbers'>
           <t>SHOULD provide unlimited registries with well-defined registration procedures and SHOULD mandate registration of all non-private parameters, independent of the form of the parameter names.<vspace blankLines='1'/></t>
           <t>MUST NOT assume that any parameter with the "X-" prefix is non-standard and that any parameter without the "X-" prefix is standard.<vspace blankLines='1'/></t>
+					<t>SHOULD identify a convention (and reserve delimiters as necessary) to allow local or implementation-specific extensions; e.g. the "vnd." scheme in <xref target="RFC4288"/>.</t>
           <t>SHOULD NOT bar parameters with the "X-" prefix from being registered with IANA, as all existing parameters with the "X-" prefix need to be registered with IANA.<vspace blankLines='1'/></t>
         </list>
       </t>
