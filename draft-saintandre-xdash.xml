@@ -54,8 +54,8 @@
     <keyword>Internet-Draft</keyword>
 
     <abstract>
-      <t>Historically, protocol designers and implementers have often distinguished between "standard" and "non-standard" parameters (such as media types and header fields) by prefixing the latter with the string "X-" or similar constructions (e.g., "x."), which is commonly understood to stand for "eXperimental" or "eXtension".</t>
-			<t>In practice, this convention causes more problems than it solves.  Therefore, this document deprecates the "X-" convention for most application protocols.</t>
+      <t>Historically, there has often been a perceived distinction between "standard" and "non-standard" parameters (such as media types and header fields), by prefixing the latter with the string "X-" or similar constructions (e.g., "x.").</t>
+			<t>In practice, this convention causes more problems than it solves.  Therefore, this document deprecates the "X-" convention for most application protocol parameters.</t>
     </abstract>
   </front>
 
