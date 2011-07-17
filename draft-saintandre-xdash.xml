@@ -54,14 +54,16 @@
     <keyword>Internet-Draft</keyword>
 
     <abstract>
-      <t>Many application protocols use named parameters to identify data (media types, header fields in Internet mail messages and HTTP requests, etc.).  Historically, protocol designers and implementers have often distinguished between "standard" and "non-standard" parameters by prefixing the latter with the string "X-" or similar constructions (e.g., "x."), where the "X" is commonly understood to stand for "eXperimental" or "eXtension".  Although in theory the "X-" convention was a good way to avoid collisions (and attendant interoperability problems) between standard parameters and non-standard parameters, in practice the costs associated with the advancement of non-standard parameters into the standards space outweigh the benefits.  Therefore this document deprecates the "X-" convention for most application protocols.</t>
+      <t>Historically, protocol designers and implementers have often distinguished between "standard" and "non-standard" parameters (such as media types and header fields) by prefixing the latter with the string "X-" or similar constructions (e.g., "x."), which is commonly understood to stand for "eXperimental" or "eXtension".</t>
+			<t>In practice, this convention causes more problems than it solves.  Therefore, this document deprecates the "X-" convention for most application protocols.</t>
     </abstract>
   </front>
 
   <middle>
 
     <section title="Introduction" anchor="introduction">
-      <t>Many application protocols use named parameters to identify data (media types, header fields in Internet mail messages and HTTP requests, etc.).  Historically, protocol designers and implementers have often distinguished between "standard" and "non-standard" parameters by prefixing the latter with the string "X-" or similar constructions (e.g., "x."), where the "X" is commonly understood to stand for "eXperimental" or "eXtension".  Although in theory the "X-" convention was a good way to avoid collisions (and attendant interoperability problems) between standard parameters and non-standard parameters, in practice the costs associated with the advancement of non-standard parameters into the standards space outweigh the benefits.  Therefore this document deprecates the "X-" convention for most application protocols.</t>
+      <t>Many application protocols use named parameters to identify data (media types, header fields in Internet mail messages and HTTP requests, etc.).  Historically, protocol designers and implementers have often distinguished between "standard" and "non-standard" parameters by prefixing the latter with the string "X-" or similar constructions (e.g., "x."), where the "X" is commonly understood to stand for "eXperimental" or "eXtension".</t>
+			<t>Although in theory the "X-" convention was a good way to avoid collisions (and attendant interoperability problems) between standard parameters and non-standard parameters, in practice the costs associated with the advancement of non-standard parameters into the standards space outweigh the benefits.  Therefore this document deprecates the "X-" convention for most application protocols.</t>
     </section>
 
     <section title="Terminology" anchor="terminology">
