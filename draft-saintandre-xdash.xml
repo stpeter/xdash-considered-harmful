@@ -54,91 +54,56 @@
     <keyword>Internet-Draft</keyword>
 
     <abstract>
-      <t>Many application protocols use named parameters to identify data (media types, header fields in Internet mail messages and HTTP requests, etc.).  Historically, protocol designers and implementers have often distinguished between "standard" and "non-standard" parameters by prefixing the latter with the string "X-" or similar constructions (e.g., "x."), where the "X" is commonly understood to stand for "eXperimental" or "eXtension".  Although in theory the "X-" convention was a good way to avoid collisions (and attendant interoperability problems) between standard parameters and non-standard parameters, in practice the costs associated with the advancement of non-standard parameters into the standards space outweigh the benefits.  Therefore this document deprecates the "X-" convention for most application protocols.</t>
+      <t>Historically, there has often been a perceived distinction between "standard" and "non-standard" parameters (such as media types and header fields), by prefixing the latter with the string "X-" or similar constructions (e.g., "x.").</t>
+			<t>In practice, this convention causes more problems than it solves.  Therefore, this document deprecates the "X-" convention for most application protocol parameters.</t>
     </abstract>
   </front>
 
   <middle>
 
     <section title="Introduction" anchor="introduction">
-      <t>Many application protocols use named parameters to identify data (media types, header fields in Internet mail messages and HTTP requests, etc.).  Historically, protocol designers and implementers have often distinguished between "standard" and "non-standard" parameters by prefixing the latter with the string "X-" or similar constructions (e.g., "x."), where the "X" is commonly understood to stand for "eXperimental" or "eXtension".  Although in theory the "X-" convention was a good way to avoid collisions (and attendant interoperability problems) between standard parameters and non-standard parameters, in practice the costs associated with the advancement of non-standard parameters into the standards space outweigh the benefits.  Therefore this document deprecates the "X-" convention for most application protocols.</t>
+      <t>Many application protocols use named parameters to identify data (media types, header fields in Internet mail messages and HTTP requests, etc.).  Historically, protocol designers and implementers have often distinguished between "standard" and "non-standard" parameters by prefixing the latter with the string "X-" or similar constructions (e.g., "x."), where the "X" is commonly understood to stand for "eXperimental" or "eXtension".</t>
+			<t>Although in theory the "X-" convention was a good way to avoid collisions (and attendant interoperability problems) between standard parameters and non-standard parameters, in practice the costs associated with the advancement of non-standard parameters into the standards space outweigh the benefits.  Therefore this document deprecates the "X-" convention for most application protocols by making specific recommendations.</t>
+			<t>See <xref target="background"/> for background about the "X-" convention, and <xref target="analysis"/> for the reasoning that led to these recommendations.</t>
     </section>
 
     <section title="Terminology" anchor="terminology">
       <t>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in <xref target='RFC2119'/>.</t>
     </section>
 
-    <section title="Background" anchor="background">
-      <t>The beginnings of the "X-" convention can be found in a suggestion made by Brian Harvey in 1975 with regard to FTP parameters <xref target='RFC691'/>:</t>
-      <t><list style='empty'><t>Thus, FTP servers which care about the distinction between Telnet print and non-print could implement SRVR N and SRVR T.  Ideally the SRVR parameters should be registered with Jon Postel to avoid conflicts, although it is not a disaster if two sites use the same parameter for different things.  I suggest that parameters be allowed to be more than one letter, and that an initial letter X be used for really local idiosyncracies.</t></list></t>
-      <t>This "X" prefix was subsequently used in <xref target='RFC737'/>, <xref target='RFC743'/>, and <xref target='RFC775'/>.  This usage was noted in <xref target='RFC1123'/>:</t>
-      <t><list style='empty'><t>FTP allows "experimental" commands, whose names begin with "X".  If these commands are subsequently adopted as standards, there may still be existing implementations using the "X" form....  All FTP implementations SHOULD recognize both forms of these commands, by simply equating them with extra entries in the command lookup table.</t></list></t>
-      <t>The "X-" convention has been used for email header fields since at least the publication of <xref target='RFC822'/> in 1982, which distinguished between "Extension-fields" and "user-defined-fields" as follows:</t>
-      <t><list style='empty'><t>The prefatory string "X-" will never be used in the names of Extension-fields.  This provides user-defined fields with a protected set of names.</t></list></t>
-      <t>That rule was restated by <xref target='RFC1154'/> as follows:</t>
-      <t><list style='empty'><t>Keywords beginning with "X-" are permanently reserved to implementation-specific use.  No standard registered encoding keyword will ever begin with "X-".</t></list></t>
-      <t>This convention continued with various specifications for media types (<xref target='RFC2045'/>, <xref target='RFC2046'/>, <xref target='RFC2047'/>), HTTP headers (<xref target='RFC2068'/>, <xref target='RFC2616'/>), vCard parameters and properties (<xref target='RFC2426'/>), Uniform Resource Names (<xref target='RFC3406'/>), LDAP field names (<xref target='RFC4512'/>), and other technologies.</t>
-      <t>However, use of the "X-" prefix in email headers was effectively deprecated between the publication of <xref target='RFC822'/> in 1982 and the publication of <xref target='RFC2822'/> in 2001 by removing the distinction between the "extension-field" construct and the "user-defined-field" construct (a similar change happened with regard to Session Initiation Protocol "P-" headers when <xref target='RFC3427'/> was obsoleted by <xref target='RFC5727'/>).</t>
-      <t>Despite the fact that parameters containing the "X-" string have been effectively deprecated in email headers, they continue to be used in a wide variety of application protocols.  The two primary situations motivating such use are:</t>
-      <t>
-        <list style='numbers'>
-          <t>Experiments that are intended to possibly be standardized in the future, if they are successful.<vspace blankLines='1'/></t>
-          <t>Extensions that are intended to never be standardized because they are intended only for use in implementation-specific applications or on private networks.</t>
-        </list>
-      </t>
-      <t>Use of this naming convention is not mandated by the Internet Standards Process <xref target='BCP9'/> or IANA registration rules <xref target='BCP26'/>.  Rather it is an individual choice by each specification that references the convention or each administrative process that chooses to use it.  In particular, some standards track RFCs have interpreted the convention in a normative way (e.g., <xref target='RFC822'/> and <xref target='RFC5451'/>).</t>
-    </section>
+		<section title="Recommendations for New Parameters" anchor="param-recs">
 
-    <section title="Analysis" anchor="analysis">
-      <t>The primary problem with the "X-" convention is that non-standard parameters have a tendency to advance into the protected space of standard parameters (whether de jure or de facto), thus introducing the need for migration from the "X-" name to the standard name.  Migration, in turn, introduces interoperability issues because older implementations will support only the "X-" name and newer implementations might support only the standard name.  To preserve interoperability, newer implementations simply support the "X-" name forever, which means that the non-standard name has become a de facto standard (thus obviating the need for segregation of the name space into "standard" and "non-standard" in the first place).</t>
-      <t>We have already seen this phenomenon at work with regard to FTP in the quote from <xref target='RFC1123'/> in the previous section.  The HTTP community had the same experience with the "x-gzip" and "x-compressed" media types, as noted in <xref target='RFC2068'/>:</t>
-      <t><list style='empty'><t>For compatibility with previous implementations of HTTP, applications should consider "x-gzip" and "x-compress" to be equivalent to "gzip" and "compress" respectively.</t></list></t>
-      <t>A similar example can be found in <xref target='RFC5064'/>, which defined the "Archived-At" message header field but also found it necessary to define and register the "X-Archived-At" field:</t>
-      <t><list style='empty'><t>For backwards compatibility, this document also describes the X-Archived-At header field, a precursor of the Archived-At header field.  The X-Archived-At header field MAY also be parsed, but SHOULD not be generated.</t></list></t>
-      <t>One of the original reasons for segregation of name spaces into standard and non-standard areas was the perceived difficulty of registering names.  However, the solution to that problem has been simpler registration rules, such as those provided by <xref target='RFC3864'/> and <xref target='RFC4288'/>, as well as separate registries for permanent and provisional names, as explained in xref target='RFC4288'/>:</t>
-      <t><list style='empty'><t>[W]ith the simplified registration procedures described above for vendor and personal trees, it should rarely, if ever, be necessary to use unregistered experimental types.  Therefore, use of both "x-" and "x." forms is discouraged.</t></list></t>
-      <t>Furthermore, often standardization of a non-standard parameter or protocol element leads to subtly different behavior (e.g., the standard version might have different security properties as a result of security review provided during the standardization process).  If implementers treat the old, non-standard parameter and the new, standard parameter as equivalent, interoperability and security problems can ensue.</t>
-      <t>For similar considerations with regard to the "P-" convention in the Session Initiation Protocol, see <xref target='RFC5727'/>.</t>
-      <t>In some situations, segregating the name space of parameters used in a given application protocol can be justified:</t>
-      <t>
+			<t>Creators of new parameters in existing protocols (e.g., HTTP headers, Internet media types) -- regardless of who creates them:</t>
+			<t>
         <list style='numbers'>
-          <t>When it is extremely unlikely that some parameters will ever be standardized.  However, in this case implementation-specific and private-use parameters can be Uniform Resource Identifiers <xref target='RFC3986'/> (e.g., "http://example.com/foo") or can be prepended with a string that is derived from the name or primary domain name of the organization that has defined the parameter (e.g., "ExampleInc-foo", "VND.ExampleInc.foo", or "com.example.foo").  Similarly, truly experimental parameters can be given meaningless names such as nonsense words, the output of a hash function, or UUIDs <xref target='RFC4122'/>.<vspace blankLines='1'/></t>
-          <t>When parameter names might have significant meaning.  However, this case is rare, since implementers can almost always find a synonym for an existing term (e.g., "urgency" instead of "priority") or simply invent a more creative name (e.g., "get-it-there-fast").<vspace blankLines='1'/></t>
-          <t>When parameter names need to be very short (e.g., as in <xref target='RFC5646'/> for language tags).  However, in this case it can be more efficient to assign numbers instead of human-readable names (e.g., as in <xref target='RFC2939'/> for DCHP options) and to leave a certain numeric range for implementation-specific extensions or private use (e.g., as with the codec numbers used with the Session Description Protocol <xref target='RFC4566'/>).</t>
+          <t>SHOULD by default assume that all parameters they create have the potential to advance to a standard.<vspace blankLines='1'/></t> 
+          <t>SHOULD utilise meaningful but currently unused names WITHOUT the "X-" prefix, when there is a potential for it to becomes widely used and/or standardized (e.g., because an extension is public or awaiting wider validation) .<vspace blankLines='1'/></t>
+          <t>SHOULD follow conventions specific to the parameter when creating parameters for use in implementation-specific applications or on private networks. Depending on the parameter, this could be a URI (e.g., "http://example.com/foo"), a name that incorporates the relevant organization's name (e.g., "ExampleInc-foo" or "VND.ExampleInc.foo") or primary domain name (e.g., "com.example.foo").<vspace blankLines='1'/></t>
+          <t>SHOULD generate meaningless names for parameters that will not become standardized (e.g., because the extension is completely private or purely speculative). For example, the output of a hash function (e.g., "esuDj6Ssil8kDn4yfvvdwMTRhlU"), a UUID (e.g., "1AB9C36F-1618-4C1F-855D-96B5BAFC7FB3"), or even a nonsense word (e.g., "foobarbazqux") .<vspace blankLines='1'/></t>
         </list>
-      </t>
-      <t>There are three primary objections to deprecating the "X-" convention as a best practice for application protocols:</t>
-      <t>
-        <list style='numbers'>
-          <t>Implementers are easily confused and can't be expected to know that a parameter is non-standard unless it contains the "X-" prefix.  However, implementers already are quite flexible about using both prefixed and non-prefixed names based on what works in the field, so the distinction between de facto names (e.g., "X-foo") and de jure names (e.g., "foo") is effectively meaningless.<vspace blankLines='1'/></t>
-          <t>Collisions are undesirable and it would be bad to for both a standard parameter "foo" and a non-standard parameter "foo" to exist simultaneously. However, names are almost always cheap, so an experimental, implementation-specific, or private-use name of "foo" does not prevent a standards development organization from issuing a similarly creative name such as "bar".</t>
-          <t><xref target='BCP82'/> is entitled "Assigning Experimental and Testing Numbers Considered Useful" and therefore implies that the "X-" prefix is also useful for experimental parameters.  However, BCP 82 addresses the need for protocol numbers when the pool of such numbers is strictly limited (e.g., DHCP options) or when a number is absolutely required even for purely experimental purposes (e.g., the Protocol field of the IP header).  In almost all application protocols that make use of protocol parameters (including email headers, media types, HTTP headers, vCard parameters and properties, URNs, and LDAP field names), the name space is not limited or constrained in any way, so there is no need to assign a block of names for private use or experimental purposes (see also <xref target='BCP26'/>).</t>
-        </list>
-      </t>
-      <t>Therefore it appears that segregating the parameter space into a standard area and a non-standard area has few if any benefits, and has at least one significant cost in terms of interoperability.</t>
-    </section>
+			</t>
+		</section>
+		
+		<section title="Recommendations for Application Protocols" anchor="spec-recs">
+			
+			<t>Authors of application protocols that allow extension using parameters:</t>
 
-    <section title="Recommendations" anchor="recommendations">
-      <t>Based on the foregoing considerations, this document makes the following recommendations:</t>
-      <t>
+			<t>
         <list style='numbers'>
-          <t>Specification authors and implementers SHOULD assume that all protocol parameters have the potential to advance into the non-standard area into the standard area, and proceed as described in the remaining recommendations.<vspace blankLines='1'/></t> 
-          <t>Specification authors SHOULD provide unlimited registries with well-defined registration procedures and SHOULD mandate registration of all non-private parameters, independent of the form of the parameter names.<vspace blankLines='1'/></t>
-          <t>Specification authors and implementers wishing to experiment with parameters that have the potential to be standardized (e.g., because the experiment is public or awaiting wider validation) SHOULD generate meaningful but currently unused names without the "X-" prefix.<vspace blankLines='1'/></t>
-          <t>Implementers wishing to experiment with parameters that are highly unlikely to be standardized (e.g., because the expriment is completely private or purely speculative) SHOULD generate meaningless names such as the output of a hash function (e.g., "esuDj6Ssil8kDn4yfvvdwMTRhlU"), a UUID (e.g., "1AB9C36F-1618-4C1F-855D-96B5BAFC7FB3"), or even a nonsense word (e.g., "foobarbazqux").<vspace blankLines='1'/></t>
-          <t>Implementers wishing to create parameters for use in implementation-specific applications or on private networks SHOULD mint URIs (e.g., "http://example.com/foo"), generate names that incorporate the relevant organization's name (e.g., "ExampleInc-foo" or "VND.ExampleInc.foo") or primary domain name (e.g., "com.example.foo"), or follow the recommendation just provided for generating meaningless names.<vspace blankLines='1'/></t>
-          <t>Application protocol specifications MUST NOT assume that any parameter with the "X-" prefix is non-standard and that any parameter without the "X-" prefix is standard.<vspace blankLines='1'/></t>
-          <t>Application protocol specifications SHOULD NOT mandate that no parameters with the "X-" prefix can be registered with the IANA whereas all parameters with the "X-" prefix need to be registered with the IANA.</t>
+          <t>SHOULD provide unlimited registries with well-defined registration procedures and SHOULD mandate registration of all non-private parameters, independent of the form of the parameter names.<vspace blankLines='1'/></t>
+          <t>MUST NOT assume that any parameter with the "X-" prefix is non-standard and that any parameter without the "X-" prefix is standard.<vspace blankLines='1'/></t>
+					<t>SHOULD identify a convention (and reserve delimiters as necessary) to allow local or implementation-specific extensions; e.g. the "vnd." scheme in <xref target="RFC4288"/>.</t>
+          <t>SHOULD NOT bar parameters with the "X-" prefix from being registered with IANA, as all existing parameters with the "X-" prefix need to be registered with IANA.<vspace blankLines='1'/></t>
         </list>
       </t>
-    </section>
-
+		</section>
+		
     <section title="Security Considerations" anchor="security">
       <t>Interoperability and migration issues with security-critical parameters can result in unnecessary vulnerabilities.</t>
     </section>
 
     <section title="IANA Considerations" anchor="iana">
-      <t>This document requests no action by the IANA.</t>
+      <t>[TODO: describe changes to existing procedures to IANA; update RFCs?]</t>
     </section>
 
     <section title="Acknowledgements" anchor="acks">
@@ -1069,6 +1034,57 @@ specifications of each URI scheme.
 </reference>
 
     </references>
+
+    <section title="Background" anchor="background">
+      <t>The beginnings of the "X-" convention can be found in a suggestion made by Brian Harvey in 1975 with regard to FTP parameters <xref target='RFC691'/>:</t>
+      <t><list style='empty'><t>Thus, FTP servers which care about the distinction between Telnet print and non-print could implement SRVR N and SRVR T.  Ideally the SRVR parameters should be registered with Jon Postel to avoid conflicts, although it is not a disaster if two sites use the same parameter for different things.  I suggest that parameters be allowed to be more than one letter, and that an initial letter X be used for really local idiosyncracies.</t></list></t>
+      <t>This "X" prefix was subsequently used in <xref target='RFC737'/>, <xref target='RFC743'/>, and <xref target='RFC775'/>.  This usage was noted in <xref target='RFC1123'/>:</t>
+      <t><list style='empty'><t>FTP allows "experimental" commands, whose names begin with "X".  If these commands are subsequently adopted as standards, there may still be existing implementations using the "X" form....  All FTP implementations SHOULD recognize both forms of these commands, by simply equating them with extra entries in the command lookup table.</t></list></t>
+      <t>The "X-" convention has been used for email header fields since at least the publication of <xref target='RFC822'/> in 1982, which distinguished between "Extension-fields" and "user-defined-fields" as follows:</t>
+      <t><list style='empty'><t>The prefatory string "X-" will never be used in the names of Extension-fields.  This provides user-defined fields with a protected set of names.</t></list></t>
+      <t>That rule was restated by <xref target='RFC1154'/> as follows:</t>
+      <t><list style='empty'><t>Keywords beginning with "X-" are permanently reserved to implementation-specific use.  No standard registered encoding keyword will ever begin with "X-".</t></list></t>
+      <t>This convention continued with various specifications for media types (<xref target='RFC2045'/>, <xref target='RFC2046'/>, <xref target='RFC2047'/>), HTTP headers (<xref target='RFC2068'/>, <xref target='RFC2616'/>), vCard parameters and properties (<xref target='RFC2426'/>), Uniform Resource Names (<xref target='RFC3406'/>), LDAP field names (<xref target='RFC4512'/>), and other technologies.</t>
+      <t>However, use of the "X-" prefix in email headers was effectively deprecated between the publication of <xref target='RFC822'/> in 1982 and the publication of <xref target='RFC2822'/> in 2001 by removing the distinction between the "extension-field" construct and the "user-defined-field" construct (a similar change happened with regard to Session Initiation Protocol "P-" headers when <xref target='RFC3427'/> was obsoleted by <xref target='RFC5727'/>).</t>
+      <t>Despite the fact that parameters containing the "X-" string have been effectively deprecated in email headers, they continue to be used in a wide variety of application protocols.  The two primary situations motivating such use are:</t>
+      <t>
+        <list style='numbers'>
+          <t>Experiments that are intended to possibly be standardized in the future, if they are successful.<vspace blankLines='1'/></t>
+          <t>Extensions that are intended to never be standardized because they are intended only for use in implementation-specific applications or on private networks.</t>
+        </list>
+      </t>
+      <t>Use of this naming convention is not mandated by the Internet Standards Process <xref target='BCP9'/> or IANA registration rules <xref target='BCP26'/>.  Rather it is an individual choice by each specification that references the convention or each administrative process that chooses to use it.  In particular, some standards track RFCs have interpreted the convention in a normative way (e.g., <xref target='RFC822'/> and <xref target='RFC5451'/>).</t>
+    </section>
+
+    <section title="Analysis" anchor="analysis">
+      <t>The primary problem with the "X-" convention is that non-standard parameters have a tendency to advance into the protected space of standard parameters (whether de jure or de facto), thus introducing the need for migration from the "X-" name to the standard name.  Migration, in turn, introduces interoperability issues because older implementations will support only the "X-" name and newer implementations might support only the standard name.  To preserve interoperability, newer implementations simply support the "X-" name forever, which means that the non-standard name has become a de facto standard (thus obviating the need for segregation of the name space into "standard" and "non-standard" in the first place).</t>
+      <t>We have already seen this phenomenon at work with regard to FTP in the quote from <xref target='RFC1123'/> in the previous section.  The HTTP community had the same experience with the "x-gzip" and "x-compressed" media types, as noted in <xref target='RFC2068'/>:</t>
+      <t><list style='empty'><t>For compatibility with previous implementations of HTTP, applications should consider "x-gzip" and "x-compress" to be equivalent to "gzip" and "compress" respectively.</t></list></t>
+      <t>A similar example can be found in <xref target='RFC5064'/>, which defined the "Archived-At" message header field but also found it necessary to define and register the "X-Archived-At" field:</t>
+      <t><list style='empty'><t>For backwards compatibility, this document also describes the X-Archived-At header field, a precursor of the Archived-At header field.  The X-Archived-At header field MAY also be parsed, but SHOULD not be generated.</t></list></t>
+      <t>One of the original reasons for segregation of name spaces into standard and non-standard areas was the perceived difficulty of registering names.  However, the solution to that problem has been simpler registration rules, such as those provided by <xref target='RFC3864'/> and <xref target='RFC4288'/>, as well as separate registries for permanent and provisional names, as explained in <xref target='RFC4288'/>:</t>
+      <t><list style='empty'><t>[W]ith the simplified registration procedures described above for vendor and personal trees, it should rarely, if ever, be necessary to use unregistered experimental types.  Therefore, use of both "x-" and "x." forms is discouraged.</t></list></t>
+      <t>Furthermore, often standardization of a non-standard parameter or protocol element leads to subtly different behavior (e.g., the standard version might have different security properties as a result of security review provided during the standardization process).  If implementers treat the old, non-standard parameter and the new, standard parameter as equivalent, interoperability and security problems can ensue.</t>
+      <t>For similar considerations with regard to the "P-" convention in the Session Initiation Protocol, see <xref target='RFC5727'/>.</t>
+      <t>In some situations, segregating the name space of parameters used in a given application protocol can be justified:</t>
+      <t>
+        <list style='numbers'>
+          <t>When it is extremely unlikely that some parameters will ever be standardized.  However, in this case implementation-specific and private-use parameters can be Uniform Resource Identifiers <xref target='RFC3986'/> (e.g., "http://example.com/foo") or can be prepended with a string that is derived from the name or primary domain name of the organization that has defined the parameter (e.g., "ExampleInc-foo", "VND.ExampleInc.foo", or "com.example.foo").  Similarly, truly experimental parameters can be given meaningless names such as nonsense words, the output of a hash function, or UUIDs <xref target='RFC4122'/>.<vspace blankLines='1'/></t>
+          <t>When parameter names might have significant meaning.  However, this case is rare, since implementers can almost always find a synonym for an existing term (e.g., "urgency" instead of "priority") or simply invent a more creative name (e.g., "get-it-there-fast").<vspace blankLines='1'/></t>
+          <t>When parameter names need to be very short (e.g., as in <xref target='RFC5646'/> for language tags).  However, in this case it can be more efficient to assign numbers instead of human-readable names (e.g., as in <xref target='RFC2939'/> for DCHP options) and to leave a certain numeric range for implementation-specific extensions or private use (e.g., as with the codec numbers used with the Session Description Protocol <xref target='RFC4566'/>).</t>
+        </list>
+      </t>
+      <t>There are three primary objections to deprecating the "X-" convention as a best practice for application protocols:</t>
+      <t>
+        <list style='numbers'>
+          <t>Implementers are easily confused and can't be expected to know that a parameter is non-standard unless it contains the "X-" prefix.  However, implementers already are quite flexible about using both prefixed and non-prefixed names based on what works in the field, so the distinction between de facto names (e.g., "X-foo") and de jure names (e.g., "foo") is effectively meaningless.<vspace blankLines='1'/></t>
+          <t>Collisions are undesirable and it would be bad to for both a standard parameter "foo" and a non-standard parameter "foo" to exist simultaneously. However, names are almost always cheap, so an experimental, implementation-specific, or private-use name of "foo" does not prevent a standards development organization from issuing a similarly creative name such as "bar".</t>
+          <t><xref target='BCP82'/> is entitled "Assigning Experimental and Testing Numbers Considered Useful" and therefore implies that the "X-" prefix is also useful for experimental parameters.  However, BCP 82 addresses the need for protocol numbers when the pool of such numbers is strictly limited (e.g., DHCP options) or when a number is absolutely required even for purely experimental purposes (e.g., the Protocol field of the IP header).  In almost all application protocols that make use of protocol parameters (including email headers, media types, HTTP headers, vCard parameters and properties, URNs, and LDAP field names), the name space is not limited or constrained in any way, so there is no need to assign a block of names for private use or experimental purposes (see also <xref target='BCP26'/>).</t>
+        </list>
+      </t>
+      <t>Therefore it appears that segregating the parameter space into a standard area and a non-standard area has few if any benefits, and has at least one significant cost in terms of interoperability.</t>
+    </section>
+
 
   </back>
 </rfc>
