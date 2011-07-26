@@ -7,7 +7,7 @@
 <?rfc toc="yes"?>
 <?rfc tocdepth="4"?>
 
-<rfc category="bcp" docName="draft-saintandre-xdash-02" ipr="trust200902">
+<rfc category="bcp" docName="draft-saintandre-xdash-03" ipr="trust200902">
 
   <front>
     <title abbrev="The X- Prefix">Deprecating Use of the "X-" Prefix in Application Protocols</title>
@@ -48,7 +48,7 @@
       </address>
     </author>
 
-    <date month="July" day="11" year="2011"/>
+    <date month="July" day="26" year="2011"/>
 
     <area>Applications</area>
     <keyword>Internet-Draft</keyword>
@@ -1061,7 +1061,7 @@ specifications of each URI scheme.
       <t>We have already seen this phenomenon at work with regard to FTP in the quote from <xref target='RFC1123'/> in the previous section.  The HTTP community had the same experience with the "x-gzip" and "x-compressed" media types, as noted in <xref target='RFC2068'/>:</t>
       <t><list style='empty'><t>For compatibility with previous implementations of HTTP, applications should consider "x-gzip" and "x-compress" to be equivalent to "gzip" and "compress" respectively.</t></list></t>
       <t>A similar example can be found in <xref target='RFC5064'/>, which defined the "Archived-At" message header field but also found it necessary to define and register the "X-Archived-At" field:</t>
-      <t><list style='empty'><t>For backwards compatibility, this document also describes the X-Archived-At header field, a precursor of the Archived-At header field.  The X-Archived-At header field MAY also be parsed, but SHOULD not be generated.</t></list></t>
+      <t><list style='empty'><t>For backwards compatibility, this document also describes the X-Archived-At header field, a precursor of the Archived-At header field.  The X-Archived-At header field MAY also be parsed, but SHOULD NOT be generated.</t></list></t>
       <t>One of the original reasons for segregation of name spaces into standard and non-standard areas was the perceived difficulty of registering names.  However, the solution to that problem has been simpler registration rules, such as those provided by <xref target='RFC3864'/> and <xref target='RFC4288'/>, as well as separate registries for permanent and provisional names, as explained in <xref target='RFC4288'/>:</t>
       <t><list style='empty'><t>[W]ith the simplified registration procedures described above for vendor and personal trees, it should rarely, if ever, be necessary to use unregistered experimental types.  Therefore, use of both "x-" and "x." forms is discouraged.</t></list></t>
       <t>Furthermore, often standardization of a non-standard parameter or protocol element leads to subtly different behavior (e.g., the standard version might have different security properties as a result of security review provided during the standardization process).  If implementers treat the old, non-standard parameter and the new, standard parameter as equivalent, interoperability and security problems can ensue.</t>
