@@ -55,7 +55,7 @@
 
     <abstract>
       <t>Historically, there has often been a perceived distinction between "standard" and "non-standard" parameters (such as media types and header fields), by prefixing the latter with the string "X-" or similar constructions (e.g., "x.").</t>
-			<t>In practice, this convention causes more problems than it solves.  Therefore, this document deprecates the "X-" convention for most application protocol parameters.</t>
+      <t>In practice, this convention causes more problems than it solves.  Therefore, this document deprecates the "X-" convention for most application protocol parameters.</t>
     </abstract>
   </front>
 
@@ -63,41 +63,42 @@
 
     <section title="Introduction" anchor="introduction">
       <t>Many application protocols use named parameters to identify data (media types, header fields in Internet mail messages and HTTP requests, etc.).  Historically, protocol designers and implementers have often distinguished between "standard" and "non-standard" parameters by prefixing the latter with the string "X-" or similar constructions (e.g., "x."), where the "X" is commonly understood to stand for "eXperimental" or "eXtension".</t>
-			<t>Although in theory the "X-" convention was a good way to avoid collisions (and attendant interoperability problems) between standard parameters and non-standard parameters, in practice the costs associated with the advancement of non-standard parameters into the standards space outweigh the benefits.  Therefore this document deprecates the "X-" convention for most application protocols by making specific recommendations.</t>
-			<t>See <xref target="background"/> for background about the "X-" convention, and <xref target="analysis"/> for the reasoning that led to these recommendations.</t>
+      <t>Although in theory the "X-" convention was a good way to avoid collisions (and attendant interoperability problems) between standard parameters and non-standard parameters, in practice the costs associated with the advancement of non-standard parameters into the standards space outweigh the benefits.  Therefore this document deprecates the "X-" convention for most application protocols by making specific recommendations.</t>
+      <t>See <xref target="background"/> for background about the "X-" convention, and <xref target="analysis"/> for the reasoning that led to these recommendations.</t>
     </section>
 
     <section title="Terminology" anchor="terminology">
       <t>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in <xref target='RFC2119'/>.</t>
     </section>
 
-		<section title="Recommendations for New Parameters" anchor="param-recs">
+    <section title="Recommendations for New Parameters" anchor="param-recs">
 
-			<t>Creators of new parameters in existing protocols (e.g., HTTP headers, Internet media types) -- regardless of who creates them:</t>
-			<t>
+      <t>Creators of new parameters in existing protocols (e.g., HTTP headers, Internet media types) -- regardless of who creates them:</t>
+      <t>
         <list style='numbers'>
           <t>SHOULD by default assume that all parameters they create have the potential to advance to a standard.<vspace blankLines='1'/></t> 
           <t>SHOULD utilise meaningful but currently unused names WITHOUT the "X-" prefix, when there is a potential for it to becomes widely used and/or standardized (e.g., because an extension is public or awaiting wider validation) .<vspace blankLines='1'/></t>
           <t>SHOULD follow conventions specific to the parameter when creating parameters for use in implementation-specific applications or on private networks. Depending on the parameter, this could be a URI (e.g., "http://example.com/foo"), a name that incorporates the relevant organization's name (e.g., "ExampleInc-foo" or "VND.ExampleInc.foo") or primary domain name (e.g., "com.example.foo").<vspace blankLines='1'/></t>
           <t>SHOULD generate meaningless names for parameters that will not become standardized (e.g., because the extension is completely private or purely speculative). For example, the output of a hash function (e.g., "esuDj6Ssil8kDn4yfvvdwMTRhlU"), a UUID (e.g., "1AB9C36F-1618-4C1F-855D-96B5BAFC7FB3"), or even a nonsense word (e.g., "foobarbazqux") .<vspace blankLines='1'/></t>
         </list>
-			</t>
-		</section>
-		
-		<section title="Recommendations for Application Protocols" anchor="spec-recs">
-			
-			<t>Authors of application protocols that allow extension using parameters:</t>
+      </t>
+    </section>
+    
+    <section title="Recommendations for Application Protocols" anchor="spec-recs">
+      
+      <t>Authors of application protocols that allow extension using parameters:</t>
 
-			<t>
+      <t>
         <list style='numbers'>
           <t>SHOULD provide unlimited registries with well-defined registration procedures and SHOULD mandate registration of all non-private parameters, independent of the form of the parameter names.<vspace blankLines='1'/></t>
-          <t>MUST NOT assume that any parameter with the "X-" prefix is non-standard and that any parameter without the "X-" prefix is standard.<vspace blankLines='1'/></t>
-					<t>SHOULD identify a convention (and reserve delimiters as necessary) to allow local or implementation-specific extensions; e.g. the "vnd." scheme in <xref target="RFC4288"/>.</t>
+          <t>MUST NOT assume that a parameter with an "X-" prefix is non-standard.<vspace blankLines='1'/></t>
+          <t>MUST NOT assume that a parameter without an "X-" prefix is standard.<vspace blankLines='1'/></t>
+          <t>SHOULD identify a convention (and reserve delimiters as necessary) to allow local or implementation-specific extensions; e.g. the "vnd." scheme in <xref target="RFC4288"/>.</t>
           <t>SHOULD NOT bar parameters with the "X-" prefix from being registered with IANA, as all existing parameters with the "X-" prefix need to be registered with IANA.<vspace blankLines='1'/></t>
         </list>
       </t>
-		</section>
-		
+    </section>
+    
     <section title="Security Considerations" anchor="security">
       <t>Interoperability and migration issues with security-critical parameters can result in unnecessary vulnerabilities.</t>
     </section>
@@ -926,7 +927,7 @@ specifications of each URI scheme.
       Software Foundation's (OSF) Distributed Computing Environment (DCE),
       and then in Microsoft Windows platforms.</t>
 <t>This specification is derived from the DCE specification with the
-      kind permission of the OSF (now known as The Open Group).  Information from earlier versions of the DCE specification have been	
+      kind permission of the OSF (now known as The Open Group).  Information from earlier versions of the DCE specification have been  
       incorporated into this document.</t></abstract></front>
 <seriesInfo name='RFC' value='4122' />
 <format type='TXT' octets='59319' target='http://www.rfc-editor.org/rfc/rfc4122.txt' />
