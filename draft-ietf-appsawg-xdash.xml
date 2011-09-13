@@ -78,7 +78,7 @@
         <list style='numbers'>
           <t>SHOULD by default assume that all parameters they create have the potential to advance to a standard.<vspace blankLines='1'/></t> 
           <t>SHOULD utilise meaningful but currently unused names WITHOUT the "X-" prefix, when there is a potential for it to becomes widely used and/or standardized (e.g., because an extension is public or awaiting wider validation) .<vspace blankLines='1'/></t>
-          <t>SHOULD follow conventions specific to the parameter when creating parameters for use in implementation-specific applications or on private networks. Depending on the parameter, this could be a URI (e.g., "http://example.com/foo"), a name that incorporates the relevant organization's name (e.g., "ExampleInc-foo" or "VND.ExampleInc.foo") or primary domain name (e.g., "com.example.foo").<vspace blankLines='1'/></t>
+          <t>SHOULD follow conventions specific to the parameter when creating parameters for use in implementation-specific applications or on private networks. Depending on the parameter, this could be a URI (e.g., "http://example.com/foo"), a name that incorporates the relevant organization's name (e.g., "ExampleInc-foo" or, as consistent with <xref target="RFC4288"/>, "VND.ExampleInc.foo") or primary domain name (e.g., "com.example.foo").<vspace blankLines='1'/></t>
           <t>SHOULD generate meaningless names for parameters that will not become standardized (e.g., because the extension is completely private or purely speculative). For example, the output of a hash function (e.g., "esuDj6Ssil8kDn4yfvvdwMTRhlU"), a UUID (e.g., "1AB9C36F-1618-4C1F-855D-96B5BAFC7FB3"), or even a nonsense word (e.g., "foobarbazqux") .<vspace blankLines='1'/></t>
         </list>
       </t>
@@ -90,10 +90,11 @@
 
       <t>
         <list style='numbers'>
-          <t>SHOULD provide unlimited registries with well-defined registration procedures and SHOULD mandate registration of all non-private parameters, independent of the form of the parameter names.<vspace blankLines='1'/></t>
+          <t>SHOULD provide unlimited registries with well-defined registration procedures.<vspace blankLines='1'/></t>
+          <t>SHOULD mandate registration of all non-private parameters, independent of the form of the parameter names.<vspace blankLines='1'/></t>
           <t>MUST NOT assume that a parameter with an "X-" prefix is non-standard.<vspace blankLines='1'/></t>
           <t>MUST NOT assume that a parameter without an "X-" prefix is standard.<vspace blankLines='1'/></t>
-          <t>SHOULD identify a convention (and reserve delimiters as necessary) to allow local or implementation-specific extensions; e.g. the "vnd." scheme in <xref target="RFC4288"/>.</t>
+          <t>SHOULD identify a convention to allow local or implementation-specific extensions, and reserve delimeters as necessary.<vspace blankLines='1'/></t>
           <t>SHOULD NOT bar parameters with the "X-" prefix from being registered with IANA, as all existing parameters with the "X-" prefix need to be registered with IANA.<vspace blankLines='1'/></t>
         </list>
       </t>
@@ -104,11 +105,11 @@
     </section>
 
     <section title="IANA Considerations" anchor="iana">
-      <t>[TODO: describe changes to existing procedures to IANA; update RFCs?]</t>
+      <t>This document does not modify registration procedures currently in force for various application protocols.  However, such procedures might be updated in the future to incorporate the best practices defined in this document.</t>
     </section>
 
     <section title="Acknowledgements" anchor="acks">
-      <t>Thanks to Claudio Allocchio, Adam Barth, Nathaniel Borenstein, Eric Burger, Al Constanzo, Dave Cridland, Martin Duerst, Frank Ellermann, J.D. Falk, Tony Finch, Tony Hansen, Ted Hardie, Joe Hildebrand, Alfred Hoenes, Paul Hoffman, Eric Johnson, John Klensin, Graham Klyne, Murray Kucherawy, Eliot Lear, John Levine, Bill McQuillan, Alexey Melnikov, Subramanian Moonesamy, Keith Moore, Ben Niven-Jenkins, Dirk Pranke, Randy Presuhn, Julian Reschke, Doug Royer, Andrew Sullivan, Martin Thomson, Nicolas Williams, Tim Williams, and Kurt Zeilenga for their feedback.</t>
+      <t>Thanks to Claudio Allocchio, Adam Barth, Nathaniel Borenstein, Eric Burger, Al Constanzo, Dave Cridland, Martin Duerst, Frank Ellermann, J.D. Falk, Ned Freed, Tony Finch, Tony Hansen, Ted Hardie, Joe Hildebrand, Alfred Hoenes, Paul Hoffman, Eric Johnson, John Klensin, Graham Klyne, Murray Kucherawy, Eliot Lear, John Levine, Bill McQuillan, Alexey Melnikov, Subramanian Moonesamy, Keith Moore, Ben Niven-Jenkins, Dirk Pranke, Randy Presuhn, Julian Reschke, Doug Royer, Andrew Sullivan, Martin Thomson, Nicolas Williams, Tim Williams, Mykyta Yevstifeyev, and Kurt Zeilenga for their feedback.</t>
     </section>
 
   </middle>
